@@ -1,4 +1,4 @@
-import pagination from './pagination-vue'
+import pagination from './pagination-vue-simple'
 
 const comment = {
   install: function(Vue){

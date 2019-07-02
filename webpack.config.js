@@ -7,8 +7,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'paginationVue.js', // 修改文件名
-    library: 'paginationVue', // 指定使用require时的模块名
+    filename: 'paginationVueSimple.js', // 修改文件名
+    library: 'paginationVueSimple', // 指定使用require时的模块名
     libraryTarget: 'umd', // 指定输出格式
     umdNamedDefine: true // 会对UMD的构建过程中的AMD模块进行命名，否则就使用匿名的
   },
