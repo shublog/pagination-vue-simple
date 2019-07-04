@@ -1,6 +1,6 @@
 # pagination-vue-simple
 
-> 一个简单的原生自定义vue分页插件
+> 一个简单的原生自定义vue分页插件。
 
 ## 安装
 
@@ -10,9 +10,9 @@
 
 ```javascript
 import Vue from 'vue'
-import paginationVueSimple from 'pagination-vue-simple'
+import PaginationVueSimple from 'pagination-vue-simple'
 
-Vue.use(paginationVueSimple)
+Vue.use(PaginationVueSimple)
 ```
 
 ## 最简示例
