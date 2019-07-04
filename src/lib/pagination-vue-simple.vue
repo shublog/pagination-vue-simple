@@ -20,34 +20,34 @@ export default {
   name: 'pagination-vue-simple',
   props: {
     // 当前页码
-    page: {
-      type: Number,
-      default: 1
-    },
+    // page: {
+    //   type: Number,
+    //   default: 1
+    // },
     // 数据总条数
     total: {
       type: Number,
-      default: 38
+      default: 1
     },
     // 每页数据条数
     limit: {
       type: Number,
-      default: 4
+      default: 10
     },
     // 最多显示页码数
     maxShow: {
       type: Number,
       default: 5
     },
-    // 使用型号
+    // 页码样式大小类型
     type: {
       type: String,
-      default: ''
+      default: 'normal'
     },
     // 是否显示总页码
     isShowTotalPage: {
       type: Boolean,
-      default: true
+      default: false
     },
     // 页面放置位置
     pPosition: {
@@ -57,6 +57,7 @@ export default {
   },
   data () {
     return {
+      page: 1,
       // 页码总数,计算
       pageCount: 1,
       // 中间页码参数，计算
@@ -78,7 +79,7 @@ export default {
       if (num < 1) num = 1
       if (num > this.pageCount) num = this.pageCount
       this.page = num
-      this.$emit('getPage', this.page)
+      this.$emit('currentChangePage', this.page)
       this.init()
     },
     // 数据

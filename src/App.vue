@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <h2>pagination-vue-simple</h2> 一个原创分页组件，用于vue项目
+    <h2>pagination-vue-simple</h2> 一个原创分页组件，用于vue项目 <br>
+    <pagination-vue-simple :type="'sm'" @current-change-page="getPage"></pagination-vue-simple>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
-  data () {
+  data(){
     return {
-      msg: 'Welcome to Your Vue.js App'
+      page: 1
+    }
+  },
+  methods:{
+    getPage(page){
+      this.page = page
     }
   }
 }
