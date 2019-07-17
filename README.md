@@ -1,7 +1,7 @@
 # pagination-vue-simple
 
 > 一个简单的原生自定义vue分页插件。
-
+<img src="./src/assets/logo.png" alt="效果图展示">
 ## 安装
 
 `npm install pagination-vue-simple --save`
