@@ -97,7 +97,7 @@ export default {
 | type         | 页码样式大小类型                            | String  |  normal/sm/lg          | normal                 |
 | is-show-total-page| 是否显示总页码                               | Boolean | true/false             | false                  |
 | theme-color    | 主题颜色，被选中时的颜色                             | String  |              | #36af6c                  |
-| pPosition    | 页面放置位置                               | String  | left/center/right      | left                   |
+| p-position    | 页面放置位置                               | String  | left/center/right      | left                   |
 
 ## 事件
 
