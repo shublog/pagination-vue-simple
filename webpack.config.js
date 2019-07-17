@@ -50,6 +50,7 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
+    disableHostCheck: true, //  新增该配置项
     historyApiFallback: true,
     noInfo: true,
     overlay: true

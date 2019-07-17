@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h2>pagination-vue-simple</h2> 一个原创分页组件，用于vue项目 <br>
-    <pagination-vue-simple :type="'sm'" @current-change-page="getPage"></pagination-vue-simple>
+    <h2>pagination-vue-simple</h2> 一个原创分页组件，用于vue项目 <br><br><br>
+    <pagination-vue-simple :total="90" @current-change-page="getPage" :is-show-total-page="true" :theme-color="'green'"></pagination-vue-simple>
   </div>
 </template>
 

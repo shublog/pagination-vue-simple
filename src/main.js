@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import paginationVueSimple from './lib/index.js'
-Vue.use(paginationVueSimple)
-
+import PaginationVueSimple from './lib/index'
+ 
+Vue.use(PaginationVueSimple)
 new Vue({
   el: '#app',
   render: h => h(App)

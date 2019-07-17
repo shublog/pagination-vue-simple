@@ -1,7 +1,7 @@
 <template>
   <div :class="['text-left', {'text-right': pPosition === 'right', 'text-center': pPosition === 'center'}]">
     <div class="inline-block">
-      <ul v-if="total > limit" :class="['pagination', {'pagination-sm': type === 'sm', 'pagination-lg': type === 'lg'}]">
+      <ul v-if="total > limit" ref="pagination" :class="['pagination', {'pagination-sm': type === 'sm', 'pagination-lg': type === 'lg'}]">
         <li :class="{'hide': page === 1}"><a href="javascript:;" @click="goToPage(1)">首页</a></li>
         <li :class="{'disabled': page === 1}"><a href="javascript:;" @click="goToPage(page - 1)">上一页</a></li>
         <li v-for="(item, index) in pageArr" :key="index" :class="{'active': page === item}">
@@ -19,7 +19,7 @@
 export default {
   name: 'pagination-vue-simple',
   props: {
-    // 当前页码
+    // 传入的当前页码
     // page: {
     //   type: Number,
     //   default: 1
@@ -53,6 +53,11 @@ export default {
     pPosition: {
       type: String,
       default: 'left'
+    },
+    //自定义主题色
+    themeColor: {
+      type: String,
+      default: '#36af6c'
     }
   },
   data () {
@@ -63,7 +68,9 @@ export default {
       // 中间页码参数，计算
       divide: 3,
       // 当前页码数
-      pageArr: []
+      pageArr: [],
+      //是否启用自定义主题色兼容方法
+      isOpen: false
     }
   },
   mounted () {
@@ -71,9 +78,61 @@ export default {
     this.divide = Math.floor(this.maxShow / 2)
     // console.log(this.pageCount)
 
+    let isIE = window.ActiveXObject || "ActiveXObject" in window
+
+    if(isIE) {
+      this.isOpen = true
+      this.setThemeColor('init')
+
+      this.addEvent(this.$refs.pagination, (ev)=>{
+        let target = ev.target || window.event.srcElement
+        console.log(target)
+        target.style.color = this.themeColor
+      }, 'mouseover', false)
+      this.addEvent(this.$refs.pagination, (ev)=>{
+        let target = ev.target || window.event.srcElement
+        target.removeAttribute('style')
+      }, 'mouseout', false)  
+    }else {
+      this.$refs.pagination.style.setProperty('--pagination-theme-color', this.themeColor) 
+    }
+
     this.init()
   },
   methods: {
+    //监听事件的兼容性写法
+    addEvent(obj, fn, even, boolean) {
+      if(obj.addEventListener) {
+        obj.addEventListener(even, fn, boolean)
+      }else {
+        obj.attachEvent('on' + even, fn)
+      }
+    },
+    //页面主题颜色兼容性写法
+    setThemeColor(status){
+      setTimeout(()=>{
+        let el = this.$refs.pagination
+        let arr = el.getElementsByTagName('a')
+        let a
+        let i = 0
+        for(; i < arr.length; i++) {
+          a = arr[i]
+
+          //主题色设置的兼容ie写法
+          if(status === 'init' && a.innerHTML == this.page) {
+            a.style.color = this.themeColor
+            return
+          }
+
+          //切换页面时触发的方法
+          if(a.parentNode.className === 'active') {
+            a.style.color = this.themeColor
+          }else {
+            a.removeAttribute('style')
+          }
+        }  
+      },100)
+    },
     // 页码切换
     goToPage (num) {
       if (num < 1) num = 1
@@ -81,6 +140,7 @@ export default {
       this.page = num
       this.$emit('currentChangePage', this.page)
       this.init()
+      if(this.isOpen) this.setThemeColor()
     },
     // 数据
     init () {
@@ -129,7 +189,8 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+
   .text-left {
     text-align: left;
   }
@@ -153,6 +214,8 @@ export default {
     margin: 0;
     border-radius: 4px;
     float: left;
+
+    --pagination-theme-color: #36af6c;
   }
   .pagination > li {
     display: inline;
@@ -160,9 +223,10 @@ export default {
   .pagination > li > a {
     position: relative;
     float: left;
-    padding: 6px 12px;
+    padding: 6px 12px 5px;
     margin-left: -1px;
     line-height: 1.42857143;
+    font-size: 14px;
     color: #333333;
     text-decoration: none;
     background-color: #fff;
@@ -177,25 +241,24 @@ export default {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
-  .pagination > li > a:hover,
-  .pagination > li > a:focus {
+  .pagination > li > a:hover {
     z-index: 2;
-    color: #23527c;
+    /*color: #36af6c;*/
+    color: var(--pagination-theme-color);
     background-color: #eee;
     border-color: #ddd;
   }
   .pagination > .active > a,
-  .pagination > .active > a:hover,
-  .pagination > .active > a:focus {
+  .pagination > .active > a:hover {
     z-index: 3;
-    color: #36af6c;
+    color: var(--pagination-theme-color);
     cursor: default;
     background-color: transparent;
     border-color: #dddddd;
   }
+
   .pagination > .disabled > a,
-  .pagination > .disabled > a:hover,
-  .pagination > .disabled > a:focus {
+  .pagination > .disabled > a:hover {
     color: #777;
     cursor: not-allowed;
     background-color: #fff;

@@ -1,7 +1,15 @@
 # pagination-vue-simple
 
 > 一个简单的原生自定义vue分页插件。
-<img src="./src/assets/logo.png" alt="效果图展示">
+
+<img src="./src/assets/prod.gif" alt="效果图展示">
+
+
+###### 1.1.0 版本更新说明：
+
+1.新增自定义页码被激活颜色theme-color的功能，并兼容ie9及其以上
+2.对属性说明部分参数写法进行修正，使其与完整示例里的写法一致
+3.新增效果图展示
 
 ## 安装
 
@@ -56,6 +64,7 @@ export default {
         :max-show="5" 
         :is-show-total-page="false" 
         :p-position="'left'"
+        :theme-color="'green'"
         @current-change-page="getPage">
     </pagination-vue-simple>
   </div>
@@ -84,13 +93,14 @@ export default {
 | ------------ | -------------------------------- | ------- | ---------------------- | ---------------------- |
 | total        | 数据总条数                            | Number  |                        |                        |
 | limit        | 每页数据条数                            | Number  |                        | 10                     |
-| maxShow      | 最多显示页码数                                | Number  |                        | 5                      |
+| max-show      | 最多显示页码数                                | Number  |                        | 5                      |
 | type         | 页码样式大小类型                            | String  |  normal/sm/lg          | normal                 |
-| isShowTotalPage| 是否显示总页码                               | Boolean | true/false             | false                  |
+| is-show-total-page| 是否显示总页码                               | Boolean | true/false             | false                  |
+| theme-color    | 主题颜色，被选中时的颜色                             | String  |              | #36af6c                  |
 | pPosition    | 页面放置位置                               | String  | left/center/right      | left                   |
 
 ## 事件
 
 | 事件名称           | 说明                | 回调参数            |
 | -------------- | ----------------- | --------------- |
-| current-change-page | currentChangePage改变时会触发 | 当前页 page |
+| current-change-page | 切换页码时会触发 | 当前页 page |
